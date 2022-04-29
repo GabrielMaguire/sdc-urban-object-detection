@@ -33,22 +33,70 @@ Due to memory limitations in Udacity's virtual workspace environment I was unabl
 
 #### Training Versus Validation Loss
 
-The validation loss point displayed in each tensorboard output graph was consistently ~0.5 loss points above the training loss point when compared at the same time step. On average across all experiments, this is expected due to overfitting of the model to the training data. Overfitting is a result of a model with a large number of parameters learning over specific details of the training data. When this happens the model loses its ability to generalize to new data, such as the validation data, and perform well. With a limited number of samples, and initially assuming no data augmentations, overfitting is expected.
+The validation loss point displayed in each tensorboard output graph was consistently ~0.5 loss points above the training loss point when compared at the same time step. On average across all experiments, this is expected due to overfitting of the model to the training data. Overfitting is a result of a model with a large number of parameters learning over specific details of the training data. When this happens the model loses its ability to generalize to new data, such as the validation data, and perform well. With a limited number of samples, and initially assuming limited data augmentations, overfitting is expected.
 
-#### Experiment 0 Results
+### Experiment 0 Results
 
 The first experiment I ran using the default pipeline.config file provided for the object detection model. This experiment was unexpectedly successful given that the default learning rate was not changed and no augmentations were performed on the input dataset.
 
 After ~2600 training steps the total training loss was ~1.0 while the training classification loss was ~0.3 and the training localization loss was ~0.4. Seeing as a total loss metric between 1 and 2 is indicative of a high quality object detection model, this experiment set a high standard for the following experiments. The time series output of these results can be seen in the images below.
 
-![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/Loss_total_loss.svg "Experiment 0 Total Loss")
 *Experiment 0 Total Loss*
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/Loss_total_loss.svg "Experiment 0 Total Loss")
 
-![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/Loss_classification_loss.svg "Experiment 0 Classification Loss")
 *Experiment 0 Classification Loss*
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/Loss_classification_loss.svg "Experiment 0 Classification Loss")
 
-![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/Loss_localization_loss.svg "Experiment 0 Localization Loss")
 *Experiment 0 Localization Loss*
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/Loss_localization_loss.svg "Experiment 0 Localization Loss")
 
-![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/learning_rate.svg "Experiment 0 Learning Rate")
 *Experiment 0 Learning Rate*
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/learning_rate.svg "Experiment 0 Learning Rate")
+
+### Experiment 2 Results
+
+For experiment 2 I decided to implement 5 data augmentations options (4 additional augmentations compared to experiment 0) and adjust the learning rate parameters.
+
+I kept the `random_crop_image` augmentation used in experiment 0 and added `random_adjust_brightness`, `random_adjust_saturation`, `random_jitter_boxes`, and `random_black_patches`. These augmentations were chosen to simulate the variation seen in the training data. `random_adjust_brightness` and `random_adjust_saturation` are meant to simulate the changes in daylight, while `random_black_patches` is meant to simulate object occlusion. I felt that `random_jitter_boxes` was a worthwhile augmentation to mimic the small variation in the labeling of the bounding boxes.
+
+*Experiment 0 Total Loss*
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/Loss_total_loss.svg "Experiment 0 Total Loss")
+
+*Experiment 0 Classification Loss*
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/Loss_classification_loss.svg "Experiment 0 Classification Loss")
+
+*Experiment 0 Localization Loss*
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/Loss_localization_loss.svg "Experiment 0 Localization Loss")
+
+*Experiment 0 Learning Rate*
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/learning_rate.svg "Experiment 0 Learning Rate")
+
+
+### Experiment 4 Results
+
+*Experiment 0 Total Loss*
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/Loss_total_loss.svg "Experiment 0 Total Loss")
+
+*Experiment 0 Classification Loss*
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/Loss_classification_loss.svg "Experiment 0 Classification Loss")
+
+*Experiment 0 Localization Loss*
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/Loss_localization_loss.svg "Experiment 0 Localization Loss")
+
+*Experiment 0 Learning Rate*
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/learning_rate.svg "Experiment 0 Learning Rate")
+
+
+### Experiment 6 Results
+
+*Experiment 0 Total Loss*
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/Loss_total_loss.svg "Experiment 0 Total Loss")
+
+*Experiment 0 Classification Loss*
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/Loss_classification_loss.svg "Experiment 0 Classification Loss")
+
+*Experiment 0 Localization Loss*
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/Loss_localization_loss.svg "Experiment 0 Localization Loss")
+
+*Experiment 0 Learning Rate*
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/learning_rate.svg "Experiment 0 Learning Rate")
