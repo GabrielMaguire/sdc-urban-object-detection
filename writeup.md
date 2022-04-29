@@ -25,4 +25,30 @@ I started by creating an 80-20 split for training and validation of the .tfrecor
 
 ## Training and Validation
 
-![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/Loss_total_loss.svg "Pipeline 0 Total Loss")
+I performed 7 experiments in total. Each experiment completed ~2000-2600 training steps and varied different parameters such as the learning rate and data augmentations. In this section I will cover the top 3 most insightful experiments in detail.
+
+#### Virtual Workspace Memory Limitations
+
+Due to memory limitations in Udacity's virtual workspace environment I was unable to run both the training and validation simultaneously without crashing. This meant that the validation process was executed at the conclusion of the training and only produced a single data point in the tensorboard output graphs. Unfortunately, when downloading the .svg images from the tensorboard output the single validation point is not visible. However, I will comment on the training versus validation loss here without this data shown.
+
+#### Training Versus Validation Loss
+
+The validation loss point displayed in each tensorboard output graph was consistently ~0.5 loss points above the training loss point when compared at the same time step. On average across all experiments, this is expected due to overfitting of the model to the training data. Overfitting is a result of a model with a large number of parameters learning over specific details of the training data. When this happens the model loses its ability to generalize to new data, such as the validation data, and perform well. With a limited number of samples, and initially assuming no data augmentations, overfitting is expected.
+
+#### Experiment 0 Results
+
+The first experiment I ran using the default pipeline.config file provided for the object detection model. This experiment was unexpectedly successful given that the default learning rate was not changed and no augmentations were performed on the input dataset.
+
+After ~2600 training steps the total training loss was ~1.0 while the training classification loss was ~0.3 and the training localization loss was ~0.4. Seeing as a total loss metric between 1 and 2 is indicative of a high quality object detection model, this experiment set a high standard for the following experiments. The time series output of these results can be seen in the images below.
+
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/Loss_total_loss.svg "Experiment 0 Total Loss")
+*Experiment 0 Total Loss*
+
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/Loss_classification_loss.svg "Experiment 0 Classification Loss")
+*Experiment 0 Classification Loss*
+
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/Loss_localization_loss.svg "Experiment 0 Localization Loss")
+*Experiment 0 Localization Loss*
+
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/learning_rate.svg "Experiment 0 Learning Rate")
+*Experiment 0 Learning Rate*
