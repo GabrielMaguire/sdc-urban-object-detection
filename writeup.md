@@ -1,7 +1,7 @@
 # Object Detection in an Urban Environment
 
 Gabriel Maguire
-Date: 3/15/2022
+Date: 5/1/2022
 
 This project...
 
@@ -27,13 +27,17 @@ I started by creating an 80-20 split for training and validation of the .tfrecor
 
 I performed 7 experiments in total. Each experiment completed ~2000-2600 training steps and varied different parameters such as the learning rate and data augmentations. In this section I will cover the top 3 most insightful experiments in detail.
 
+#### Training Versus Validation Loss
+
+The validation loss point displayed in each tensorboard output graph was consistently ~0.5 loss points above the training loss point when compared at the same time step. On average across all experiments, this is expected due to overfitting of the model to the training data. Overfitting is a result of a model with a large number of parameters learning over specific details of the training data. When this happens the model loses its ability to generalize to new data, such as the validation or test data, and perform well. With a limited number of samples, and initially assuming limited data augmentations, overfitting is expected.
+
 #### Virtual Workspace Memory Limitations
 
 Due to memory limitations in Udacity's virtual workspace environment I was unable to run both the training and validation simultaneously without crashing. This meant that the validation process was executed at the conclusion of the training and only produced a single data point in the tensorboard output graphs. Unfortunately, when downloading the .svg images from the tensorboard output the single validation point is not visible. However, I will comment on the training versus validation loss here without this data shown.
 
-#### Training Versus Validation Loss
+#### Virtual Workspace Explore Augmentations Issue
 
-The validation loss point displayed in each tensorboard output graph was consistently ~0.5 loss points above the training loss point when compared at the same time step. On average across all experiments, this is expected due to overfitting of the model to the training data. Overfitting is a result of a model with a large number of parameters learning over specific details of the training data. When this happens the model loses its ability to generalize to new data, such as the validation or test data, and perform well. With a limited number of samples, and initially assuming limited data augmentations, overfitting is expected.
+Due to a currently unknown issue with the Udacity virtual workspace I was unable to run the augmentation visualizations using the "Explore augmentations" notebook. My personal attempts to resolve the issue are detailed in the following knowledge article ([Knowledge article: Explore augmentations code not working](https://knowledge.udacity.com/questions/838269)), and I have reached out to Udacity support to further address the issue. I will update this writeup to include the augmentation visualizations if/when the issue is resolved.
 
 ### Experiment 0 Results
 
@@ -84,49 +88,59 @@ Addressing the impact of the additional augmentations first, I believe there are
 After ~2500 training steps, the total training loss metric was ~3. A significant increase over the baseline experiment 0.
 
 *Experiment 0 Total Loss*
-![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/Loss_total_loss.svg "Experiment 0 Total Loss")
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_02/Loss_total_loss.svg "Experiment 0 Total Loss")
 
 *Experiment 0 Classification Loss*
-![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/Loss_classification_loss.svg "Experiment 0 Classification Loss")
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_02/Loss_classification_loss.svg "Experiment 0 Classification Loss")
 
 *Experiment 0 Localization Loss*
-![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/Loss_localization_loss.svg "Experiment 0 Localization Loss")
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_02/Loss_localization_loss.svg "Experiment 0 Localization Loss")
 
 *Experiment 0 Learning Rate*
-![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/learning_rate.svg "Experiment 0 Learning Rate")
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_02/learning_rate.svg "Experiment 0 Learning Rate")
 
 
 ### Experiment 4 Results
 
 Pipeline.config: `pipeline_04.config`
 
-Seeing as experiment 2 produced far worse results than the baseline experiment 0 when increase the learning rate parameters and adding data augmentations, for experiment 4 I decided to return to the default learning rate parameters and be more selective about the augmentations I implemented.
+Seeing as experiment 2 produced far worse results than the baseline experiment 0 when increasing the learning rate parameters and adding data augmentations, for experiment 4 I decided to return to the default learning rate parameters and be more selective about the augmentations I implemented.
 
+I chose to keep only the `random_adjust_brightness`, `random_jitter_boxes`, and `random_black_patches` augmentations, removing the `random_crop_image` and `random_adjust_saturation` which I felt did not reflective the natural variation in the dataset.
 
+After ~2500 training steps, the total training loss was ~1.8. This metric shows improvement upon the results of experiment 2, but is still a worse performance than that of the baseline experiment 0.
 
 *Experiment 0 Total Loss*
-![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/Loss_total_loss.svg "Experiment 0 Total Loss")
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_04/Loss_total_loss.svg "Experiment 0 Total Loss")
 
 *Experiment 0 Classification Loss*
-![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/Loss_classification_loss.svg "Experiment 0 Classification Loss")
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_04/Loss_classification_loss.svg "Experiment 0 Classification Loss")
 
 *Experiment 0 Localization Loss*
-![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/Loss_localization_loss.svg "Experiment 0 Localization Loss")
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_04/Loss_localization_loss.svg "Experiment 0 Localization Loss")
 
 *Experiment 0 Learning Rate*
-![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/learning_rate.svg "Experiment 0 Learning Rate")
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_04/learning_rate.svg "Experiment 0 Learning Rate")
 
 
 ### Experiment 6 Results
 
+Pipeline.config: `pipeline_06.config`
+
+So far, additional augmentations over the baseline configuration seem to increase the loss metrics. Therefore, for the final experiment I chose to remove all data augmentations and keep the default learning rate.
+
+This proved to be the most successful experiment so far with a total training loss metric of ~0.7 after ~2500 training steps. This is an improvement of ~0.3 upon the baseline total training loss metric.
+
+As discussed earlier in experiment 2, one potential reason for data augmentations having a negative impact on the results of the model could be that there is no need to data augmentations since the model is not training for enough steps to exhaust the initial dataset and the augmentations are simply providing a less realistic version of the original dataset.
+
 *Experiment 0 Total Loss*
-![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/Loss_total_loss.svg "Experiment 0 Total Loss")
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_06/Loss_total_loss.svg "Experiment 0 Total Loss")
 
 *Experiment 0 Classification Loss*
-![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/Loss_classification_loss.svg "Experiment 0 Classification Loss")
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_06/Loss_classification_loss.svg "Experiment 0 Classification Loss")
 
 *Experiment 0 Localization Loss*
-![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/Loss_localization_loss.svg "Experiment 0 Localization Loss")
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_06/Loss_localization_loss.svg "Experiment 0 Localization Loss")
 
 *Experiment 0 Learning Rate*
-![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_00/learning_rate.svg "Experiment 0 Learning Rate")
+![Alt test](https://github.com/GabrielMaguire/sdc-urban-object-detection/blob/main/tensorboard_train_val_images/ref_06/learning_rate.svg "Experiment 0 Learning Rate")
