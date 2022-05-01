@@ -5,6 +5,8 @@ Date: 5/1/2022
 
 This project was designed as an introduction to object detection for autonomous vehicles. I trained and analyzed object detection models using the Waymo Open Dataset and the TensorFlow Object Detection API. The sections below detail the key steps involved in the project.
 
+Video animation output of the final model experiment can be seen in "experiment_06_segment-10072231702153043603_5725_000_5745_000_with_camera_labels.mp4".
+
 ## Exploratory Data Analysis
 
 When familiarizing myself with the dataset, there were a couple of aspects that stood out to me.
